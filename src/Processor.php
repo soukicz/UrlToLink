@@ -15,8 +15,8 @@ class Processor {
             return '<<<i<' . base64_encode($match[0]) . '>>>>';
         }, $html);
 
-        $html = preg_replace_callback('~https?://[a-z0-9/.\?&=%#\[\]_+\-]+~i', function (array $match) {
-            return '<a href="' . $match[0] . '">' . $match[0] . '</a>';
+        $html = preg_replace_callback('~https?://[a-z0-9/.\?&=%#\[\]_+\-;]+~i', function (array $match) {
+            return '<a href="' . str_replace('&amp;', '&', $match[0]) . '">' . $match[0] . '</a>';
         }, $html);
 
         $html = preg_replace_callback('~<<<[ai]<(.*?)>>>>~', function (array $match) {

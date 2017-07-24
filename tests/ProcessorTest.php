@@ -21,4 +21,17 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase {
             $link->convertUrlToLinksInHtml('abc https://www.jadi.cz/?f[v][]=40&amp;f[p]=571 def')
         );
     }
+    function testHtmlComma() {
+        $link = new Processor();
+
+        $this->assertEquals(
+            'abc <a href="https://www.jadi.cz/">https://www.jadi.cz/</a>. def',
+            $link->convertUrlToLinksInHtml('abc https://www.jadi.cz/. def')
+        );
+
+        $this->assertEquals(
+            'abc <a href="https://www.jadi.cz/">https://www.jadi.cz/</a>, def',
+            $link->convertUrlToLinksInHtml('abc https://www.jadi.cz/, def')
+        );
+    }
 }

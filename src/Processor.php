@@ -1,4 +1,5 @@
 <?php
+
 namespace Soukicz\UrlToLink;
 
 class Processor {
@@ -16,7 +17,10 @@ class Processor {
         }, $html);
 
         $html = preg_replace_callback('~https?://[a-z0-9/.\?&=%#\[\]_+\-;]+~i', function (array $match) {
-            return '<a href="' . str_replace('&amp;', '&', $match[0]) . '">' . $match[0] . '</a>';
+            preg_match('~^(.+?)([,\.]*)$~', $match[0], $m);
+            $html = '<a href="' . str_replace('&amp;', '&', $m[1]) . '">' . $m[1] . '</a>' . $m[2];
+
+            return $html;
         }, $html);
 
         $html = preg_replace_callback('~<<<[ai]<(.*?)>>>>~', function (array $match) {
